@@ -1,9 +1,10 @@
+namespace api.Models;
 public class DayData
 {
-  public required string Date {get; set; }
-  public required decimal Open {get; set; }
-  public required decimal High {get; set; }
-  public required decimal Low {get; set; }
-  public required decimal Close {get; set; }
-  public required int Volume {get; set; }
+  public string? Date {get; set; }
+  public decimal? Open {get; set; }
+  public decimal? High {get; set; }
+  public decimal? Low {get; set; }
+  public decimal? Close {get; set; }
+  public long? Volume {get; set; }
 }

@@ -10,8 +10,12 @@ namespace api.Controllers
   [ApiController]
   public class StockController : ControllerBase
   {
+    /** The Http client for querying the stock API */
     private readonly HttpClient _httpClient;
 
+    /**
+    * Queries Yahoo's stock API and adds a required user-agent header
+    */
     public StockController(IHttpClientFactory factory)
     {
       _httpClient = factory.CreateClient();
@@ -23,10 +27,15 @@ namespace api.Controllers
     }
 
     // GET: api/stocks/{symbol}
+    /**
+    * Takes in a stock symbol, queries Yahoo's API,
+    * then converts it to a ResponseDTO to return
+    */
     [HttpGet("{symbol}")]
     public async Task<IActionResult> GetStockBySymbol(string symbol)
     {
-      using HttpResponseMessage response = await _httpClient.GetAsync(symbol);
+      // Add query parameters to query by day for 1 month
+      using HttpResponseMessage response = await _httpClient.GetAsync(symbol + "?range=1mo&interval=1d");
 
       // Check if request failed
       if (!response.IsSuccessStatusCode)
@@ -45,7 +54,7 @@ namespace api.Controllers
       var symbolResponse = data?.Chart?.Result?.FirstOrDefault()?.Meta?.Symbol;
       Console.WriteLine(symbolResponse);
 
-      return Ok(JsonResponse);
+      return Ok(data);
     }
   }
 }
