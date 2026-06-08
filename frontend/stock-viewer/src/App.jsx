@@ -22,8 +22,8 @@ function App() {
     try {
       const res = await getStock(symbol);
       setStockData(res);
-    } catch (err) {
-      setError(err.message);
+    } catch {
+      setError("The lookup could not be completed");
       setStockData(null);
     } finally {
       setLoading(false);
