@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using api.Models.DTO;
+using api.Models.Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,11 @@ namespace api.Controllers
     /** The Http client for querying the stock API */
     private readonly HttpClient _httpClient;
 
+    private readonly ResponseMapper _responseMapper;
     /**
     * Queries Yahoo's stock API and adds a required user-agent header
     */
-    public StockController(IHttpClientFactory factory)
+    public StockController(IHttpClientFactory factory, ResponseMapper responseMapper)
     {
       _httpClient = factory.CreateClient();
       _httpClient.BaseAddress =
@@ -24,6 +26,7 @@ namespace api.Controllers
       _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
       );
+      _responseMapper = responseMapper;
     }
 
     // GET: api/stocks/{symbol}
@@ -49,12 +52,14 @@ namespace api.Controllers
       // Request succeeded
       var JsonResponse = await response.Content.ReadAsStringAsync();
 
-      var data = await response.Content.ReadFromJsonAsync<YahooResponse>();
+      var yahooResponse = await response.Content.ReadFromJsonAsync<YahooResponse>();
 
-      var symbolResponse = data?.Chart?.Result?.FirstOrDefault()?.Meta?.Symbol;
-      Console.WriteLine(symbolResponse);
+      // var symbolResponse = yahooResponse?.Chart?.Result?.FirstOrDefault()?.Meta?.Symbol;
+      var responseDto = yahooResponse != null 
+        ? _responseMapper.Map(yahooResponse) 
+        : throw new Exception("Could not parse the api response");
 
-      return Ok(data);
+      return Ok(responseDto);
     }
   }
 }

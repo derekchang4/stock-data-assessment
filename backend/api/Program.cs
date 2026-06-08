@@ -1,9 +1,12 @@
+using api.Models.Mapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<ResponseMapper>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddEndpointsApiExplorer();
