@@ -1,4 +1,7 @@
 namespace api.Models;
+/**
+* Represents one day of data in the response
+*/
 public class DayData
 {
   public string? Date {get; set; }

@@ -1,11 +1,13 @@
 namespace api.Models.Mapper;
 
-using System.Text.Json;
 using api.Models;
 using api.Models.DTO;
 
 public class ResponseMapper
 {
+  /**
+  * Maps a Yahoo response to a ResponseDTO
+  */
     public ResponseDTO Map(YahooResponse yahooResponse)
     {
         var result = yahooResponse.Chart.Result.FirstOrDefault()
@@ -23,6 +25,7 @@ public class ResponseMapper
 
         var data = new List<DayData>();
 
+        // Iterate through all lists and form a DayData object
         for (int i = 0; i < timestamps.Count; i++)
         {
             var date = DateTimeOffset
