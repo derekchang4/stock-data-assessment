@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "W5FNi3cqTzs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dchan\\Downloads\\Code\\prometheus\\stock-data-assessment\\backend\\api\\api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dchan\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.10\\microsoft.aspnetcore.openapi.9.0.10.nupkg.sha512",
+    "C:\\Users\\dchan\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
