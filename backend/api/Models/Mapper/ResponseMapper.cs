@@ -35,10 +35,10 @@ public class ResponseMapper
             data.Add(new DayData
             {
                 Date = date,
-                High = highs[i],
-                Low = lows[i],
-                Open = open[i],
-                Close = close[i],
+                High = Round(highs[i]),
+                Low = Round(lows[i]),
+                Open = Round(open[i]),
+                Close = Round(close[i]),
                 Volume = volume[i]
             });
         }
@@ -49,4 +49,13 @@ public class ResponseMapper
             Data = data
         };
     }
+
+    /**
+    * Rounds a decimal to two decimal places
+    * Returns null if given value is null
+    */
+    public static decimal? Round(decimal? value)
+  {
+    return value.HasValue == true ? Math.Round(value.Value, 2) : null;
+  }
 }
