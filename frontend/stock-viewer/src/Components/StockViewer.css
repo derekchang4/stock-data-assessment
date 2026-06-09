@@ -1,13 +1,19 @@
 .stock-viewer {
-  background-color: #1e293b;
+  background-color: #e7effc;
   padding: 20px;
   border-radius: 12px;
   overflow-x: auto;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s;
+
+  &:hover {
+    scrollbar-color: #888 transparent; 
+  }
 }
 
 .stock-viewer h2 {
   margin-top: 0;
-  color: #38bdf8;
+  color: #163947;
 }
 
 .stock-table {

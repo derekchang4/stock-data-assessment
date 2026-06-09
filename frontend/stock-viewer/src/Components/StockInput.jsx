@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './StockInput.css';
 
 export function StockInput({ onSearch }) {
   const [symbol, setSymbol] = useState("");

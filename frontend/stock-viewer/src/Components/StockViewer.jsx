@@ -6,7 +6,7 @@ export default function StockViewer({ data }) {
   }
 
   return (
-    <div>
+    <div className='stock-viewer'>
       <h2>{data.symbol}</h2>
 
       <table className='stock-table'>
