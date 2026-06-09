@@ -1,6 +1,14 @@
 @api_HostAddress = http://localhost:5037
 
-GET {{api_HostAddress}}/weatherforecast/
+GET {{api_HostAddress}}/api/stocks/AAPL
+Accept: application/json
+
+###
+GET {{api_HostAddress}}/api/stocks/TSLA
+Accept: application/json
+
+###
+GET {{api_HostAddress}}/api/stocks/INVALID
 Accept: application/json
 
 ###

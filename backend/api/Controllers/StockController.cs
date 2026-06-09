@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading.Tasks;
 using api.Models.DTO;
 using api.Models.Mapper;
@@ -23,6 +24,7 @@ namespace api.Controllers
       _httpClient = factory.CreateClient();
       _httpClient.BaseAddress =
         new Uri("https://query1.finance.yahoo.com/v8/finance/chart/");
+      // Required header, Yahoo API responds with Code 429 otherwise
       _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
       );
@@ -43,10 +45,20 @@ namespace api.Controllers
       // Check if request failed
       if (!response.IsSuccessStatusCode)
       {
-        return StatusCode(
-          (int)response.StatusCode,
-          await response.Content.ReadAsStringAsync()
-        );
+        if (response.StatusCode is HttpStatusCode.NotFound)
+        {
+          return StatusCode (
+            404,
+            $"The stock symbol {symbol.ToUpper()} could not be found."
+          );
+        } else
+        {
+          // Pass on other error codes
+          return StatusCode (
+            (int)response.StatusCode,
+            "The external stock API is currently unavailable"
+          );
+        }
       }
 
       // Request succeeded
